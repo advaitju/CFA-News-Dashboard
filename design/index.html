@@ -14,7 +14,6 @@
 			<!-- FontAwesome --> <link rel="stylesheet" href="https://cdn.rawgit.com/FortAwesome/Font-Awesome/945e8bbd/css/font-awesome.min.css">
 			<!-- Bootstrap --> <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<!-- Js -->
-			<!-- Bootstrap --> <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 		<!-- Dev -->
 		<!-- CSS -->
@@ -26,13 +25,16 @@
 		<div class="page-wrapper">
 			<div class="container-fluid">
 
+				<a href="#" class="sources-toggle">Show Sources</a>
+
 				<div class="row">
-					<div class="filter" style="background-image: url(https://static.pexels.com/photos/429247/pexels-photo-429247.jpeg);">
+					<div class="filter" style="background-image: url(img/dashboard-bg.jpeg);">
 						<h1>News Dashboard</h1>
 						<form action="" method="post">
 							<div class="_input-container">
 								<input class="_input" type="text" placeholder="Filter">
 								<i class="fa fa-search fa-2x" aria-hidden="true"></i>
+								<i class="fa fa-times fa-2x" aria-hidden="true"></i>
 							</div>
 						</form>
 						<p class="attribution">Powered by <a href="https://newsapi.org/" target="_blank">NewsAPI.org</a></p>
@@ -41,23 +43,76 @@
 				</div>
 
 				<div class="row">
+					<div class="col-sm-12">
+						<div class="sources-grid">
+							<div class="row">
+								<div class="_category">
+									<h4>General</h4>
+								</div>
+								<div class="_category">
+									<h4>Business</h4>
+								</div>
+							</div>
+							<div class="row">
+								<div class="_source">
+									<img class="_source-image" src="https://icons.better-idea.org/icon?url=http://arstechnica.com&size=70..120..200">
+									<h3 class="_source-name">Ars Technica</h3>
+								</div>
+								<div class="_source">
+									<img class="_source-image" src="https://icons.better-idea.org/icon?url=http://arstechnica.com&size=70..120..200">
+									<h3 class="_source-name">Ars Technica</h3>
+								</div>
+								<div class="_source selected">
+									<img class="_source-image" src="https://icons.better-idea.org/icon?url=http://arstechnica.com&size=70..120..200">
+									<h3 class="_source-name">Ars Technica</h3>
+								</div>
+								<div class="_source">
+									<img class="_source-image" src="https://icons.better-idea.org/icon?url=http://arstechnica.com&size=70..120..200">
+									<h3 class="_source-name">Ars Technica</h3>
+								</div>
+								<div class="_source">
+								<img class="_source-image" src="https://icons.better-idea.org/icon?url=http://arstechnica.com&size=70..120..200">
+								<h3 class="_source-name">Ars Technica</h3>
+							</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
 					<div class="news-grid">
-						<div class="col-sm-4">
+						<div class="col-sm-6 col-md-4 col-lg-3">
+							<a href="#" target="_blank">
+								<div class="_article">
+									<div class="_article-image" style="background-image: url(https://unsplash.it/400/300)"></div>
+									<h2 class="_article-title">Article heading here</h2>
+									<h5>BuzzFeed</h5>
+									<p class="_article-snippet">Quid de Pythagora? Animum autem reliquis rebus ita perfecit, ut corpus; Omnes enim iucundum motum, quo sensus hilaretur. Omnes enim iucundum motum, quo sensus hilaretur. Omnes enim iucundum motum, quo sensus hilaretur.</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-sm-6 col-md-4 col-lg-3">
 							<div class="_article">
 								<h2 class="_article-title">Article heading here</h2>
 								<p class="_article-snippet">Quid de Pythagora? Animum autem reliquis rebus ita perfecit, ut corpus; Omnes enim iucundum motum, quo sensus hilaretur.</p>
 							</div>
 						</div>
-						<div class="col-sm-4">
+						<div class="col-sm-6 col-md-4 col-lg-3">
 							<div class="_article">
 								<h2 class="_article-title">Article heading here</h2>
-								<p class="_article-snippet">Quid de Pythagora? Animum autem reliquis rebus ita perfecit, ut corpus; Omnes enim iucundum motum, quo sensus hilaretur.</p>
+								<p class="_article-snippet">Quid de Pythagora? Animum autem reliquis rebus ita perfecit, ut corpus; Omnes enim iucundum motum, quo sensus hilaretur. Omnes enim iucundum motum, quo sensus hilaretur. Omnes enim iucundum motum, quo sensus hilaretur. Omnes enim iucundum motum, quo sensus hilaretur. Omnes enim iucundum motum, quo sensus hilaretur.</p>
 							</div>
 						</div>
-						<div class="col-sm-4">
+						<div class="col-sm-6 col-md-4 col-lg-3">
 							<div class="_article">
 								<h2 class="_article-title">Article heading here</h2>
-								<p class="_article-snippet">Quid de Pythagora? Animum autem reliquis rebus ita perfecit, ut corpus; Omnes enim iucundum motum, quo sensus hilaretur.</p>
+								<p class="_article-snippet">Quid de Pythagora? Animum autem reliquis rebus ita perfecit, ut corpus; Omnes enim iucundum motum, quo sensus hilaretur. Omnes enim iucundum motum, quo sensus hilaretur. Omnes enim iucundum motum, quo sensus hilaretur. Omnes enim iucundum motum, quo sensus hilaretur. Omnes enim iucundum motum, quo sensus hilaretur.</p>
+							</div>
+						</div>
+						<div class="col-sm-6 col-md-4 col-lg-3">
+							<div class="_article">
+								<h2 class="_article-title">Article heading here</h2>
+								<p class="_article-snippet">Quid de Pythagora? Animum autem reliquis rebus ita perfecit, ut corpus; Omnes enim iucundum motum, quo sensus hilaretur. Omnes enim iucundum motum, quo sensus hilaretur. Omnes enim iucundum motum, quo sensus hilaretur. Omnes enim iucundum motum, quo sensus hilaretur. Omnes enim iucundum motum, quo sensus hilaretur.</p>
 							</div>
 						</div>
 					</div>
@@ -69,6 +124,7 @@
 		<!-- Js -->
 		<!-- 3rd party -->
 			<!-- jQuery --> <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+			<!-- Bootstrap --> <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<!-- Dev -->
 	<script src="js/script.js"></script>
 
