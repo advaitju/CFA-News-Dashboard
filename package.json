@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "jquery": "^3.2.1",
+    "jquery-match-height": "^0.7.2",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   },
@@ -11,8 +13,8 @@
     "react-scripts": "^1.0.7"
   },
   "scripts": {
-		"build-css": "node-sass-chokidar src/ -o src/",
-		"watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
