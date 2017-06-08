@@ -129,6 +129,17 @@ h5 {
 		}
 	}
 }
+.message {
+	height: 100%;
+	text-align: center;
+	padding: 10vmax 0;
+	._message-body {
+		font-weight: 600;
+		font-size: 50px;
+		color: #bbb;
+		text-shadow: 0 1px 0 #aaa;
+	}
+}
 .sources-grid {
 	margin: 30px 30px;
 	._category {

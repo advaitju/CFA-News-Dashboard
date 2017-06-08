@@ -101,6 +101,16 @@ h5 {
         cursor: pointer;
         background-color: rgba(0, 0, 0, 0.1); }
 
+.message {
+  height: 100%;
+  text-align: center;
+  padding: 10vmax 0; }
+  .message ._message-body {
+    font-weight: 600;
+    font-size: 50px;
+    color: #bbb;
+    text-shadow: 0 1px 0 #aaa; }
+
 .sources-grid {
   margin: 30px 30px; }
   .sources-grid ._category h4 {
