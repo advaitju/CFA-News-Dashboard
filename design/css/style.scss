@@ -168,7 +168,7 @@ h5 {
 .news-grid {
 	margin: 0 15px;
 	._article:hover {
-		box-shadow: 0 0 80px rgba(0,0,0,0.2);
+		box-shadow: 0 0 80px rgba(0,0,0,0.3);
 	}
 	._article {
 		color: $color-default;
@@ -190,7 +190,10 @@ h5 {
 			background-size: cover;
 			background-position: center;
 		}
-		._article-title {}
+		._date {
+			font-weight: 400;
+			font-size: 18px;
+		}
 	}
 }
 // 5. Page specific sections
