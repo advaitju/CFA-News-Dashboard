@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "node-sass-chokidar": "0.0.2",
-    "react-scripts": "^1.0.7"
+    "react-scripts": "^1.0.10"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
