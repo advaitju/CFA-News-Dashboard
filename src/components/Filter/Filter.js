@@ -31,8 +31,8 @@ class Filter extends Component {
 					</div>
 				</div>
 
-				<Message text="Loading... :)" show={true} />
-				<Message text="Nothing... :(" show={(this.state.sources == false || this.state.articles == false) ? 'hide' : ''} />
+				// <Message text="Loading... :)" show={true} />
+				// <Message text="Nothing... :(" show={(this.state.sources == false || this.state.articles == false) ? 'hide' : ''} />
 
 				<SourcesGrid />
 				<ArticlesGrid />

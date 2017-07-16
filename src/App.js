@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Filter from './components/Filter/Filter';
+import axios from 'axios';
+import ReactDump from 'react-dump';
 
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -14,21 +15,7 @@ class App extends Component {
 	}
 
 	componentWillMount() {
-		// const sources = fetch('https://newsapi.org/v1/sources?language=en', {
-		// 	method: 'GET',
-		// 	headers: {
-		// 		'Content-Type': 'application/json'
-		// 	}
-		// })
-		// .then().then(function(response) {
-		// 	return response.json();
-		// })
-		//
-		// if (sources.status == 'ok') {
-		// 	this.state.sources = sources.sources;
-		// } else {
-		// 	this.state.sources = false;
-		// }
+
 	}
 
   render() {
