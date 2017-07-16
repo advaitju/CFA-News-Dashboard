@@ -16,6 +16,7 @@ class App extends Component {
 		this.apiArticles = 'https://newsapi.org/v1/articles?';
 		this.sourcesLanguage = 'en';
 		this.apiKey = '1d4fef7aa6c44d9ea3ab179836a24b9a';
+		this.getArticles = this.getArticles.bind(this);
 	}
 
 	componentWillMount() {
@@ -30,37 +31,55 @@ class App extends Component {
 		})
 		.then(response => {
 			this.setState({ availableSources: response.data.sources });
-
-			// GET articles
-			// Must fetch articles separately for every source
-			for (const [index, value] of response.data.sources.entries()) {
-				if (index > 2) {
-					break;
-				}
-				axios({
-					method: 'get',
-					url: this.apiArticles,
-					responseType: 'json',
-					params: {
-						apiKey: this.apiKey,
-						source: value.id
-					}
-				})
-				.then(response => {
-					// Append new set of articles
-					this.setState({ articles: [...this.state.articles, response.data] });
-					this.setState({ fetchedSources: [...this.state.fetchedSources, response.data.source]})
-					console.log(this.state.articles);
-					console.log(this.state.fetchedSources);
-				})
-				.catch(function (error) {
-					console.log(`GET articles\n ${error}`);
-				});
-			}
+			this.getArticles([
+				response.data.sources[0].id,
+				response.data.sources[1].id,
+				response.data.sources[2].id,
+			]);
 		})
 		.catch(function (error) {
 			console.log(`GET sources\n ${error}`);
 		});
+	}
+
+	getArticles(sources) {
+		// GET articles for select sources
+		// Filter out sources that have already been fetched
+		for (const [index, value] of sources.entries()) {
+			for (const [indexJ, valueJ] of this.state.fetchedSources.entries()) {
+				if (value === valueJ.source) {
+					sources.splice(index, 1);
+				}
+			}
+		}
+		// Must get articles separately for every source
+		for (const [index, value] of sources.entries()) {
+			axios({
+				method: 'get',
+				url: this.apiArticles,
+				responseType: 'json',
+				params: {
+					apiKey: this.apiKey,
+					source: value
+				}
+			})
+			.then(response => {
+				// Append new set of articles
+				this.setState({ articles: [...this.state.articles, response.data] });
+				// List
+				this.setState({
+					fetchedSources: [...this.state.fetchedSources, {
+						show: false,
+						source: response.data.source
+					}]
+				});
+				console.log(this.state.articles);
+				console.log(this.state.fetchedSources);
+			})
+			.catch(function (error) {
+				console.log(`GET articles\n ${error}`);
+			});
+		}
 	}
 
 	render() {
