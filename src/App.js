@@ -31,6 +31,10 @@ class App extends Component {
 		.catch(function (error) {
 			console.log(error);
 		});
+
+		// $(document).ready(function(){
+		// 	$('.col-md-6.col-lg-4').matchHeight();
+		// });
 	}
 
 	render() {
