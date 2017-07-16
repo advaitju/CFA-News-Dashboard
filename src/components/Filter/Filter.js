@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import ArticlesGrid from '../ArticlesGrid/ArticlesGrid';
 import SourcesGrid from '../SourcesGrid/SourcesGrid';
