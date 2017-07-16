@@ -10,7 +10,8 @@ class App extends Component {
 		this.state = {
 			availableSources: [],
 			fetchedSources: [],
-			articles: []
+			articles: [],
+			loading: true
 		}
 		this.apiSources = 'https://newsapi.org/v1/sources?';
 		this.apiArticles = 'https://newsapi.org/v1/articles?';
@@ -38,11 +39,13 @@ class App extends Component {
 			]);
 		})
 		.catch(function (error) {
-			console.log(`GET sources\n ${error}`);
+			console.log(`GET sources\n${error}`);
 		});
 	}
 
 	getArticles(sources) {
+		this.setState({loading: true});
+
 		// GET articles for select sources
 		// Filter out sources that have already been fetched
 		for (const [index, value] of sources.entries()) {
@@ -65,19 +68,24 @@ class App extends Component {
 			})
 			.then(response => {
 				// Append new set of articles
-				this.setState({ articles: [...this.state.articles, response.data] });
+				this.setState((prevState, response) => ({
+					articles: [...prevState.articles, response.data]
+				}));
 				// List
-				this.setState({
-					fetchedSources: [...this.state.fetchedSources, {
+				console.log(response);
+				this.setState((prevState, response) => ({
+					fetchedSources: [...prevState.fetchedSources, {
 						show: false,
 						source: response.data.source
 					}]
-				});
+				}));
+
+				this.setState({loading: false});
 				console.log(this.state.articles);
 				console.log(this.state.fetchedSources);
 			})
 			.catch(function (error) {
-				console.log(`GET articles\n ${error}`);
+				console.log(`GET articles\n${error}`);
 			});
 		}
 	}
@@ -85,7 +93,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<Filter sources={this.sources} articles={this.articles} />
+				<Filter loading={this.loading} availableSources={this.availableSources} fetchedSources={this.fetchedSources} articles={this.articles} />
 			</div>
 		);
 	}

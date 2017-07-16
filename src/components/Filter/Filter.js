@@ -7,10 +7,11 @@ class Filter extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			sources: props.sources,
+			availableSources: props.availableSources,
+			fetchedSources: props.fetchedSources,
 			articles: props.articles,
 			input: '',
-			loading: true,
+			loading: props.loading,
 			nothingFound: false
 		}
 	}
@@ -24,8 +25,8 @@ class Filter extends Component {
 						<form action="" method="post">
 							<div className="_input-container">
 								<input className="_input" type="text" placeholder="Filter" />
-								<i className={`fa fa-search fa-2x ${(this.state.input === '') ? '' : 'hide'}`} aria-hidden="true"></i>
-								<i className={`fa fa-times fa-2x ${(this.state.input === '') ? 'hide' : ''}`} aria-hidden="true"></i>
+								<i className={`fa fa-search fa-2x ${this.state.input === '' ? '' : 'hide'}`} aria-hidden="true"></i>
+								<i className={`fa fa-times fa-2x ${this.state.input === '' ? 'hide' : ''}`} aria-hidden="true"></i>
 							</div>
 						</form>
 						<p className="attribution">Powered by <a href="https://newsapi.org/" target="_blank" rel="noopener noreferrer">NewsAPI.org</a></p>
@@ -33,9 +34,9 @@ class Filter extends Component {
 					</div>
 				</div>
 
-				<SourcesGrid sources={this.state.sources}/>
-				
-				<Message text="Loading... :)" show={(this.state.sources === undefined || this.state.articles === undefined) && !this.state.nothingFound ? true : false} />
+				<SourcesGrid fetchedSources={this.state.fetchedSources}/>
+
+				<Message text="Loading... :)" show={(this.loading) && !this.state.nothingFound ? true : false} />
 				<Message text="Nothing... :(" show={(this.state.nothingFound) ? true : false} />
 
 				<ArticlesGrid />

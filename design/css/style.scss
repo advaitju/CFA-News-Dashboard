@@ -57,11 +57,14 @@ h5 {
 	background-color: $highlight-blue;
 	box-shadow: 0 0 25px transparentize(#333, 0.6);
 	z-index: 2;
-	color: #ddd;
+	color: #ddd !important;
 	border-radius: 40px;
 	font-weight: 600;
 	text-transform: uppercase;
 	transform: translate(-50%,-50%);
+	&:hover, &:active {
+		color: darken(#ddd, 40%);
+	}
 }
 .sources-toggle.__hide-sources {
 	background-color: #333;
