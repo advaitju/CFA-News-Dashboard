@@ -7,6 +7,7 @@
 	// 5. Page specific sections
 	// 6. Helper CSS style applicators
 	// 7. Media queries
+	// 8. Animation keyframes
 
 
 // 0. SASS setup
@@ -139,6 +140,7 @@ h5 {
 		font-size: 50px;
 		color: #bbb;
 		text-shadow: 0 1px 0 #aaa;
+		animation: pulse 2s infinite;
 	}
 }
 .sources-grid {
@@ -221,3 +223,15 @@ h5 {
 	background: linear-gradient(rgba(255,255,255,0.05), rgba(0,0,0,0.65));
 }
 // 7. Media queries
+// 8. Animation keyframes
+@keyframes pulse {
+	5% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+	95% {
+		opacity: 1;
+	}
+}

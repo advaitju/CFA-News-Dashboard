@@ -3,8 +3,6 @@ import ArticlesGrid from '../ArticlesGrid/ArticlesGrid';
 import SourcesGrid from '../SourcesGrid/SourcesGrid';
 import Message from '../Message/Message';
 
-import './Filter.css';
-
 class Filter extends Component {
 	constructor(props) {
 		super(props);
