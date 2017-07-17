@@ -1,24 +1,18 @@
 import React, { Component } from 'react';
-import ArticlesGrid from '../ArticlesGrid/ArticlesGrid';
-import SourcesGrid from '../SourcesGrid/SourcesGrid';
-import Message from '../Message/Message';
 
 class Filter extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			availableSources: props.availableSources,
-			fetchedSources: props.fetchedSources,
 			articles: props.articles,
-			input: '',
-			loading: props.loading,
-			nothingFound: false
+			input: ''
 		}
 	}
 
 	render() {
 		return (
 			<div>
+
 				<div className="row">
 					<div className="filter" style={{backgroundImage: "url(img/dashboard-bg.jpeg)"}}>
 						<h1>News Dashboard</h1>
@@ -34,12 +28,6 @@ class Filter extends Component {
 					</div>
 				</div>
 
-				<SourcesGrid fetchedSources={this.state.fetchedSources}/>
-
-				<Message text="Loading... :)" show={(this.loading) && !this.state.nothingFound ? true : false} />
-				<Message text="Nothing... :(" show={(this.state.nothingFound) ? true : false} />
-
-				<ArticlesGrid />
 			</div>
 		);
 	}

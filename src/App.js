@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Filter from './components/Filter/Filter';
+import ArticlesGrid from './components/ArticlesGrid/ArticlesGrid';
+import SourcesGrid from './components/SourcesGrid/SourcesGrid';
+import Message from './components/Message/Message';
 import axios from 'axios';
 
 import './App.css';
@@ -11,7 +14,8 @@ class App extends Component {
 			availableSources: [],
 			fetchedSources: [],
 			articles: [],
-			loading: true
+			loading: true,
+			nothingFound: false
 		}
 		this.apiSources = 'https://newsapi.org/v1/sources?';
 		this.apiArticles = 'https://newsapi.org/v1/articles?';
@@ -33,9 +37,9 @@ class App extends Component {
 		.then(response => {
 			this.setState({ availableSources: response.data.sources });
 			this.getArticles([
-				response.data.sources[0].id,
-				response.data.sources[1].id,
-				response.data.sources[2].id,
+				response.data.sources[0],
+				response.data.sources[1],
+				response.data.sources[2],
 			]);
 		})
 		.catch(function (error) {
@@ -63,26 +67,24 @@ class App extends Component {
 				responseType: 'json',
 				params: {
 					apiKey: this.apiKey,
-					source: value
+					source: value.id
 				}
 			})
 			.then(response => {
 				// Append new set of articles
-				this.setState((prevState, response) => ({
-					articles: [...prevState.articles, response.data]
-				}));
+				this.setState({
+					articles: [...this.state.articles, response.data]
+				});
 				// List
-				console.log(response);
-				this.setState((prevState, response) => ({
-					fetchedSources: [...prevState.fetchedSources, {
+				this.setState({
+					fetchedSources: [...this.state.fetchedSources, {
 						show: false,
-						source: response.data.source
+						source: value
 					}]
-				}));
+				});
+				console.log(this.state.articles);
 
 				this.setState({loading: false});
-				console.log(this.state.articles);
-				console.log(this.state.fetchedSources);
 			})
 			.catch(function (error) {
 				console.log(`GET articles\n${error}`);
@@ -93,7 +95,16 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<Filter loading={this.loading} availableSources={this.availableSources} fetchedSources={this.fetchedSources} articles={this.articles} />
+
+				<Filter articles={this.articles} />
+
+				<Message text={"Loading... :)"} show={this.state.loading ? true : false} />
+				<Message text={"Nothing... :("} show={this.state.nothingFound ? true : false} />
+
+				<SourcesGrid fetchedSources={this.state.fetchedSources}/>
+
+				<ArticlesGrid />
+
 			</div>
 		);
 	}
