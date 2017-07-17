@@ -120,7 +120,7 @@ h5 {
   .sources-grid ._category h4 {
     margin: 0; }
   .sources-grid ._source.selected, .sources-grid ._category.selected {
-    transition: border 1s;
+    transition: border 0.5s;
     border: 3px solid #2624FF;
     color: #2624FF; }
   .sources-grid ._source, .sources-grid ._category {
@@ -132,7 +132,7 @@ h5 {
     padding: 10px;
     border-radius: 3px; }
     .sources-grid ._source ._source-image, .sources-grid ._category ._source-image {
-      width: 60px;
+      width: 40px;
       margin-right: 15px;
       vertical-align: middle; }
     .sources-grid ._source ._source-name, .sources-grid ._category ._source-name {
