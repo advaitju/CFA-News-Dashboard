@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Filter from './components/Filter/Filter';
-import ArticlesGrid from './components/ArticlesGrid/ArticlesGrid';
+import NewsGrid from './components/NewsGrid/NewsGrid';
 import SourcesGrid from './components/SourcesGrid/SourcesGrid';
 import Message from './components/Message/Message';
 import axios from 'axios';
@@ -13,56 +13,59 @@ class App extends Component {
 		this.state = {
 			sources: [],
 			articles: [],
+			categories: [
+				{
+					id: 'general',
+					show: true,
+				},
+				{
+					id: 'business',
+					show: true
+				},
+				{
+					id: 'entertainment',
+					show: false
+				},
+				{
+					id: 'gaming',
+					show: true
+				},
+				{
+					id: 'music',
+					show: false
+				},
+				{
+					id: 'politics',
+					show: false
+				},
+				{
+					id: 'science-and-nature',
+					show: true
+				},
+				{
+					id: 'sport',
+					show: false
+				},
+				{
+					id: 'technology',
+					show: true
+				}
+			],
 			loading: true,
 			nothingFound: false
 		}
-		this.categories = [
-			{
-				id: 'general',
-				show: true,
-			},
-			{
-				id: 'business',
-				show: true
-			},
-			{
-				id: 'entertainment',
-				show: false
-			},
-			{
-				id: 'gaming',
-				show: false
-			},
-			{
-				id: 'music',
-				show: false
-			},
-			{
-				id: 'politics',
-				show: true
-			},
-			{
-				id: 'science-and-nature',
-				show: true
-			},
-			{
-				id: 'sport',
-				show: false
-			},
-			{
-				id: 'technology',
-				show: true
-			}
-		];
 
 		this.apiSources = 'https://newsapi.org/v1/sources?';
 		this.apiArticles = 'https://newsapi.org/v1/articles?';
 		this.sourcesLanguage = 'en';
 		this.apiKey = '1d4fef7aa6c44d9ea3ab179836a24b9a';
+		this.iconsApiUrl = 'https://icons.better-idea.org/icon?';
+		this.iconSizes = 'size=80..120..200';
 
 		this.getFavicons = this.getFavicons.bind(this);
 		this.getArticles = this.getArticles.bind(this);
 		this.sourcesToggle = this.sourcesToggle.bind(this);
+		this.sourcesShowUpdate = this.sourcesShowUpdate.bind(this);
 		this.categoryToggle = this.categoryToggle.bind(this);
 	}
 
@@ -77,16 +80,23 @@ class App extends Component {
 			}
 		})
 		.then(response => {
-			const sources = response.data.sources.map((source) => {
+			let sources = response.data.sources.map((source) => {
 				source.fetched = false;
-				source.show = false;
+				for (const category of this.state.categories) {
+					if (category.id === source.category) {
+						source.show = category.show;
+						break;
+					}
+				}
 				return source;
 			});
+			sources = this.getFavicons(sources);
+			// console.log(sources);
 			this.setState({ sources: sources });
 			this.getArticles([
-				this.state.sources[0],
-				this.state.sources[1],
-				this.state.sources[2],
+				sources[0],
+				sources[1],
+				sources[2],
 			]);
 		})
 		.catch(function (error) {
@@ -94,8 +104,13 @@ class App extends Component {
 		});
 	}
 
-	getFavicons() {
-
+	getFavicons(sources) {
+		for (const [index, value] of sources.entries()) {
+			const url = 'url=' + encodeURIComponent(value.url);
+			value.icon = this.iconsApiUrl + url + '&' + this.iconSizes;
+			sources[index] = value;
+		}
+		return sources;
 	}
 
 	getArticles(sources) {
@@ -105,7 +120,7 @@ class App extends Component {
 		// Filter out sources that have already been fetched
 		for (const [index, value] of sources.entries()) {
 			for (const valueJ of this.state.sources) {
-				if (value.id === valueJ.id && !valueJ.fetched) {
+				if (value.id === valueJ.id && valueJ.fetched) {
 					sources.splice(index, 1);
 				}
 			}
@@ -123,29 +138,44 @@ class App extends Component {
 			})
 			.then(response => {
 				// Append new set of articles
-				for (const [index, value] of response.data.articles.entries()) {
-					value.show = true
-					response.data.articles[index] = value;
-				}
+				// for (const [index, value] of response.data.articles.entries()) {
+				// 	value.show = false;
+				// 	response.data.articles[index] = value;
+				// }
+				let updatedArticles = this.state.articles.slice();
+				updatedArticles.push(response.data);
 				this.setState({
-					articles: [...this.state.articles, response.data]
+					articles: updatedArticles
 				});
 
-				this.setState({loading: false});
 			})
 			.catch(function (error) {
 				console.log(`GET articles\n${error}`);
 			});
 		}
+		this.setState({loading: false});
 	}
 
-	sourcesToggle(sources) {
-		for (const sourceId of sources) {
-			for (const [indexJ, valueJ] of this.state.sources.entries()) {
-				if (sourceId === valueJ.id) {
-					valueJ.show = !valueJ.show;
+	sourcesToggle(sourceId) {
+		for (const [indexJ, valueJ] of this.state.sources.entries()) {
+			if (sourceId === valueJ.id) {
+				valueJ.show = !valueJ.show;
+				let updatedSources = this.state.sources;
+				updatedSources[indexJ] = valueJ;
+				this.setState({
+					sources: updatedSources
+				});
+				break;
+			}
+		}
+	}
+	sourcesShowUpdate() {
+		for (const [index, value] of this.state.sources.entries()) {
+			for (const category of this.state.categories) {
+				if (category.id === value.category) {
+					value.show = category.show;
 					let updatedSources = this.state.sources;
-					updatedSources[indexJ] = valueJ;
+					updatedSources[index] = value;
 					this.setState({
 						sources: updatedSources
 					});
@@ -156,19 +186,15 @@ class App extends Component {
 	}
 
 	categoryToggle(category) {
-		for (const [indexJ, valueJ] of this.state.sources.entries()) {
-			if (category === valueJ.category) {
-				for (const value of this.state.categories) {
-					if (category === value.id) {
-						const updatedShow = !value.show;
-					}
-				}
-				// valueJ.show = !valueJ.show;
-				// let updatedSources = this.state.sources;
-				// updatedSources[indexJ] = valueJ;
-				// this.setState({
-				// 	sources: updatedSources
-				// });
+		for (const [index, value] of this.state.categories.entries()) {
+			if (category === value.id) {
+				value.show = !value.show;
+				let updatedCategories = this.state.categories;
+				updatedCategories[index] = value;
+				this.setState({
+					categories: updatedCategories
+				})
+				this.sourcesShowUpdate();
 				break;
 			}
 		}
@@ -180,12 +206,12 @@ class App extends Component {
 
 				<Filter articles={this.articles} />
 
-				<SourcesGrid sources={this.state.sources} sourcesToggle={this.sourcesToggle} categories={this.categories} categoryToggle={this.categoryToggle} />
+				<SourcesGrid sources={this.state.sources} sourcesToggle={this.sourcesToggle} categories={this.state.categories} categoryToggle={this.categoryToggle} />
 
 				<Message text={"Loading... :)"} show={this.state.loading ? true : false} />
 				<Message text={"Nothing... :("} show={this.state.nothingFound ? true : false} />
 
-				<ArticlesGrid />
+				<NewsGrid articles={this.state.articles} />
 
 			</div>
 		);

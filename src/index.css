@@ -13,7 +13,7 @@ h1 {
 
 h2 {
   font-weight: 300;
-  font-size: 30px;
+  font-size: 22px;
   word-wrap: break-word; }
 
 h3 {
@@ -26,7 +26,7 @@ h4 {
 
 h5 {
   font-weight: 800;
-  font-size: 18px;
+  font-size: 16px;
   opacity: 0.6; }
 
 .sources-toggle {
@@ -117,13 +117,7 @@ h5 {
 
 .sources-grid {
   margin: 30px 30px; }
-  .sources-grid ._category h4 {
-    margin: 0; }
-  .sources-grid ._source.selected, .sources-grid ._category.selected {
-    transition: border 0.5s;
-    border: 3px solid #2624FF;
-    color: #2624FF; }
-  .sources-grid ._source, .sources-grid ._category {
+  .sources-grid ._category {
     border: 3px solid transparent;
     cursor: pointer;
     transition: color 0.25s, border 0.25s, background-color 1s, box-shadow 0.5s;
@@ -131,14 +125,31 @@ h5 {
     margin: 0 15px 15px 0;
     padding: 10px;
     border-radius: 3px; }
-    .sources-grid ._source ._source-image, .sources-grid ._category ._source-image {
-      width: 40px;
+    .sources-grid ._category h4 {
+      margin: 0; }
+  .sources-grid ._source.selected, .sources-grid ._category.selected {
+    transition: border 0.5s;
+    border: 3px solid #2624FF;
+    color: #2624FF; }
+  .sources-grid ._source {
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: color 0.25s, border 0.25s, background-color 1s, box-shadow 0.5s;
+    display: inline-block;
+    margin: 0 15px 15px 0;
+    padding: 6px;
+    border-radius: 3px; }
+    .sources-grid ._source h5 {
+      opacity: 0.85; }
+    .sources-grid ._source ._source-image {
+      width: 30px;
       margin-right: 15px;
       vertical-align: middle; }
-    .sources-grid ._source ._source-name, .sources-grid ._category ._source-name {
+    .sources-grid ._source ._source-name {
       margin: 0;
       display: inline;
-      vertical-align: middle; }
+      vertical-align: middle;
+      font-size: 16px; }
 
 .news-grid {
   margin: 0 15px; }
@@ -165,7 +176,7 @@ h5 {
       background-position: center; }
     .news-grid ._article ._date {
       font-weight: 400;
-      font-size: 18px; }
+      font-size: 16px; }
 
 .overlay {
   position: absolute;

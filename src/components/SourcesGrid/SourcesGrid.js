@@ -6,7 +6,7 @@ class SourcesGrid extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			sourcesDisplay: true
+			sourcesDisplay: false
 		}
 
 		this.sourcesDisplayToggle = this.sourcesDisplayToggle.bind(this);
@@ -20,11 +20,11 @@ class SourcesGrid extends Component {
 	}
 
 	render() {
-		const sources = this.props.sources.map((source, index) =>
-			<Source key={index} selected={source.show} sourceId={source.id} sourceName={source.name} onToggle={this.props.sourcesToggle} />
-		);
 		const categories = this.props.categories.map((category, index) =>
-			<Category key={index} selected={category.show} categoryId={category.id} categoryName={category.id.charAt(0).toUpperCase() + category.id.slice(1)} onToggle={this.props.categoryToggle} />
+			<Category key={index} selected={category.show} categoryId={category.id} categoryName={category.id.charAt(0).toUpperCase() + category.id.replace(/-/g, ' ').slice(1)} onToggle={this.props.categoryToggle} />
+		);
+		const sources = this.props.sources.map((source, index) =>
+			<Source key={index} selected={source.show} sourceImg={source.icon} sourceId={source.id} sourceName={source.name} onToggle={this.props.sourcesToggle} />
 		);
 		return (
 			<div className="row">
@@ -34,6 +34,7 @@ class SourcesGrid extends Component {
 						<div className="row">
 							{categories}
 						</div>
+						<br />
 
 						<div className={`row ${this.state.sourcesDisplay ? '' : 'hide'}`}>
 							{sources}

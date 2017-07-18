@@ -32,7 +32,7 @@ h1 {
 }
 h2 {
 	font-weight: 300;
-	font-size: 30px;
+	font-size: 22px;
 	word-wrap: break-word;
 }
 h3 {
@@ -45,7 +45,7 @@ h4 {
 }
 h5 {
 	font-weight: 800;
-	font-size: 18px;
+	font-size: 16px;
 	opacity: 0.6;
 }
 // 4. Blocks: BEM, OOCSS, DRY CSS
@@ -149,6 +149,13 @@ h5 {
 .sources-grid {
 	margin: 30px 30px;
 	._category {
+		border: 3px solid transparent;
+		cursor: pointer;
+		transition: color 0.25s, border 0.25s, background-color 1s, box-shadow 0.5s;
+		display: inline-block;
+		margin: 0 15px 15px 0;
+		padding: 10px;
+		border-radius: 3px;
 		h4 {
 			margin: 0;
 		}
@@ -162,16 +169,19 @@ h5 {
 		// background-color: #eee;
 		// box-shadow: $box-shadow-default;
 	}
-	._source, ._category {
+	._source {
 		border: 3px solid transparent;
 		cursor: pointer;
 		transition: color 0.25s, border 0.25s, background-color 1s, box-shadow 0.5s;
 		display: inline-block;
 		margin: 0 15px 15px 0;
-		padding: 10px;
+		padding: 6px;
 		border-radius: 3px;
+		h5 {
+			opacity: 0.85;
+		}
 		._source-image {
-			width: 40px;
+			width: 30px;
 			margin-right: 15px;
 			vertical-align: middle;
 		}
@@ -179,6 +189,7 @@ h5 {
 			margin: 0;
 			display: inline;
 			vertical-align: middle;
+			font-size: 16px;
 		}
 	}
 }
@@ -209,7 +220,7 @@ h5 {
 		}
 		._date {
 			font-weight: 400;
-			font-size: 18px;
+			font-size: 16px;
 		}
 	}
 }

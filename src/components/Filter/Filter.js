@@ -23,7 +23,7 @@ class Filter extends Component {
 								<i className={`fa fa-times fa-2x ${this.state.input === '' ? 'hide' : ''}`} aria-hidden="true"></i>
 							</div>
 						</form>
-						<p className="attribution">Powered by <a href="https://newsapi.org/" target="_blank" rel="noopener noreferrer">NewsAPI.org</a></p>
+						<p className="attribution">Powered by <a href="https://newsapi.org/" target="_blank" rel="noopener noreferrer">NewsAPI.org</a> and <a href="http://icons.better-idea.org/" target="_blank" rel="noopener noreferrer">Favicon Finder</a></p>
 						<div className="overlay darken-gradient"></div>
 					</div>
 				</div>
