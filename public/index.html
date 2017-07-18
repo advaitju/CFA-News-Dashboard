@@ -35,6 +35,7 @@
     </noscript>
     <div id="root"></div>
 
+
 		<!-- Js -->
 		<!-- 3rd party -->
 			<!-- jQuery --> <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -42,7 +43,22 @@
 			<!-- Bootstrap --> <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<script>
 			$(document).ready(function() {
-				$('.col-sm-6.col-md-4.col-lg-3').matchHeight();
+				function equalCol() {
+					var biggestHeight = 0;
+					$('.news-grid [class*="col-"]').each(function(index) {
+						if ($(this).height() > biggestHeight) {
+							biggestHeight = $(this).height();
+						}
+					})
+					$('.news-grid [class*="col-"]').each(function(index) {
+						$(this).css('height', biggestHeight);
+					})
+					setTimeout(function() {
+						equalCol();
+					}, 1500);
+				}
+				equalCol();
+
 			});
 		</script>
   </body>

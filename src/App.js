@@ -67,6 +67,8 @@ class App extends Component {
 		this.sourcesToggle = this.sourcesToggle.bind(this);
 		this.sourcesShowUpdate = this.sourcesShowUpdate.bind(this);
 		this.categoryToggle = this.categoryToggle.bind(this);
+		this.articlesShowUpdate = this.articlesShowUpdate.bind(this);
+		this.filterArticles = this.filterArticles.bind(this);
 	}
 
 	componentWillMount() {
@@ -80,8 +82,8 @@ class App extends Component {
 			}
 		})
 		.then(response => {
-			let sources = response.data.sources.map((source) => {
-				source.fetched = false;
+			var sources = response.data.sources.map((source) => {
+				// source.fetched = false;
 				for (const category of this.state.categories) {
 					if (category.id === source.category) {
 						source.show = category.show;
@@ -91,12 +93,15 @@ class App extends Component {
 				return source;
 			});
 			sources = this.getFavicons(sources);
-			// console.log(sources);
 			this.setState({ sources: sources });
 			this.getArticles([
 				sources[0],
 				sources[1],
 				sources[2],
+				sources[3],
+				sources[4],
+				sources[5],
+				sources[6]
 			]);
 		})
 		.catch(function (error) {
@@ -116,15 +121,7 @@ class App extends Component {
 	getArticles(sources) {
 		this.setState({loading: true});
 
-		// GET articles for select sources
-		// Filter out sources that have already been fetched
-		for (const [index, value] of sources.entries()) {
-			for (const valueJ of this.state.sources) {
-				if (value.id === valueJ.id && valueJ.fetched) {
-					sources.splice(index, 1);
-				}
-			}
-		}
+		// GET articles for all sources
 		// Must get articles separately for every source
 		for (const value of sources) {
 			axios({
@@ -138,15 +135,18 @@ class App extends Component {
 			})
 			.then(response => {
 				// Append new set of articles
-				// for (const [index, value] of response.data.articles.entries()) {
-				// 	value.show = false;
-				// 	response.data.articles[index] = value;
-				// }
-				let updatedArticles = this.state.articles.slice();
+				response.data.show = false;
+				for (const [index, value] of response.data.articles.entries()) {
+					value.show = true;
+					response.data.articles[index] = value;
+				}
+				var updatedArticles = this.state.articles;
 				updatedArticles.push(response.data);
 				this.setState({
 					articles: updatedArticles
 				});
+				this.articlesShowUpdate();
+				console.log(this.state.articles);
 
 			})
 			.catch(function (error) {
@@ -157,14 +157,15 @@ class App extends Component {
 	}
 
 	sourcesToggle(sourceId) {
-		for (const [indexJ, valueJ] of this.state.sources.entries()) {
-			if (sourceId === valueJ.id) {
-				valueJ.show = !valueJ.show;
-				let updatedSources = this.state.sources;
-				updatedSources[indexJ] = valueJ;
+		for (const [index, value] of this.state.sources.entries()) {
+			if (sourceId === value.id) {
+				value.show = !value.show;
+				var updatedSources = this.state.sources;
+				updatedSources[index] = value;
 				this.setState({
 					sources: updatedSources
 				});
+				this.articlesShowUpdate();
 				break;
 			}
 		}
@@ -174,11 +175,12 @@ class App extends Component {
 			for (const category of this.state.categories) {
 				if (category.id === value.category) {
 					value.show = category.show;
-					let updatedSources = this.state.sources;
+					var updatedSources = this.state.sources;
 					updatedSources[index] = value;
 					this.setState({
 						sources: updatedSources
 					});
+					this.articlesShowUpdate();
 					break;
 				}
 			}
@@ -189,7 +191,7 @@ class App extends Component {
 		for (const [index, value] of this.state.categories.entries()) {
 			if (category === value.id) {
 				value.show = !value.show;
-				let updatedCategories = this.state.categories;
+				var updatedCategories = this.state.categories;
 				updatedCategories[index] = value;
 				this.setState({
 					categories: updatedCategories
@@ -200,11 +202,53 @@ class App extends Component {
 		}
 	}
 
+	// Update articles group based on source show status
+	articlesShowUpdate() {
+		for (const value of this.state.sources) {
+			for (const [indexJ, valueJ] of this.state.articles.entries()) {
+				if (value.id === valueJ.source) {
+					valueJ.show = value.show;
+					var updatedArticles = this.state.articles;
+					updatedArticles[indexJ] = valueJ;
+					this.setState({
+						articles: updatedArticles
+					});
+					break;
+				}
+			}
+		}
+	}
+
+	filterArticles(input) {
+		input = input.toLowerCase();
+		var nothingFound = true;
+		for (const [index, value] of this.state.articles.entries()) {
+			for (const [indexJ, valueJ] of value.articles.entries()) {
+				valueJ.show = (valueJ.title.toLowerCase().indexOf(input) > -1 || valueJ.description.substring(0,150).toLowerCase().indexOf(input) > -1);
+				var updatedArticlesArticles = value.articles;
+				updatedArticlesArticles[indexJ] = valueJ;
+				value.articles = updatedArticlesArticles;
+
+				var updatedArticles = this.state.articles;
+				updatedArticles[index] = value;
+				this.setState({
+					articles: updatedArticles,
+				})
+				if (valueJ.show === true) {
+					nothingFound = false;
+				}
+			}
+		}
+		this.setState({
+			nothingFound: nothingFound
+		})
+	}
+
 	render() {
 		return (
-			<div className="App">
+			<div className="App container-fluid">
 
-				<Filter articles={this.articles} />
+				<Filter articles={this.articles} onInput={this.filterArticles} />
 
 				<SourcesGrid sources={this.state.sources} sourcesToggle={this.sourcesToggle} categories={this.state.categories} categoryToggle={this.categoryToggle} />
 
